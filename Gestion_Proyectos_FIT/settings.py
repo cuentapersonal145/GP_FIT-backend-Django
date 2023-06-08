@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # APP's de dominio propio
+    'app',
+    # Complementos externos
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -47,7 +51,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # cors
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+# cors
+CORS_ORIGIN_ALLOW_ALL = False
+# Servidor de react 
+CORS_ORIGIN_WHITELIST = (
+       'http://localhost:3000',
+)
 
 ROOT_URLCONF = 'Gestion_Proyectos_FIT.urls'
 
@@ -103,11 +116,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-co'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
+
+USE_L10N = True
 
 USE_TZ = True
 
