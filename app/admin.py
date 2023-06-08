@@ -7,4 +7,8 @@ from .models import *
 
 admin.site.register([
     TipoProyecto,
+    Proyecto,
+    Decision,
+    ActividadTipo,
+    ProyectoTipoActividad,
 ])

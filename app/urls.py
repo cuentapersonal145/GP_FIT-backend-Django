@@ -9,6 +9,10 @@ from .views import *
 router = DefaultRouter()
 
 router.register('tipo_proyecto', TipoProyectoViewSet)
+router.register('proyecto', ProyectoViewSet)
+router.register('decision', DecisionViewSet)
+router.register('actividad_tipo', ActividadTipoViewSet)
+router.register('actividad_proyecto', ProyectoTipoActividadViewSet)
 
 urlpatterns = [
     path( 'api/', include(router.urls) ),

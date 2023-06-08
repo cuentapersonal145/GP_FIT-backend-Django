@@ -20,6 +20,22 @@ from .signal import *'''
 class TipoProyectoViewSet(viewsets.ModelViewSet):
     queryset = TipoProyecto.objects.all()
     serializer_class = TipoProyectoSerializador
+    
+class ProyectoViewSet(viewsets.ModelViewSet):
+    queryset = Proyecto.objects.all()
+    serializer_class = ProyectoSerializador
+    
+class DecisionViewSet(viewsets.ModelViewSet):
+    queryset = Decision.objects.all()
+    serializer_class = DecisionSerializador
+
+class ActividadTipoViewSet(viewsets.ModelViewSet):
+    queryset = ActividadTipo.objects.all()
+    serializer_class = ActividadTipoSerializador
+    
+class ProyectoTipoActividadViewSet(viewsets.ModelViewSet):
+    queryset = ProyectoTipoActividad.objects.all()
+    serializer_class = ProyectoTipoActividadSerializador
 
 #--------------------------------------- API´s ----------------------------------------#
 
