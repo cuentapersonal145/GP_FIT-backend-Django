@@ -5,7 +5,6 @@ from .models import *
 #--------------------------------------- Serializadores por defecto ----------------------------------------#
 
 class TipoProyectoSerializador(serializers.ModelSerializer):
-    #tipo = PrincipalesDatosTipo(read_only=True)
     class Meta:
         model = TipoProyecto
         fields = '__all__'
@@ -30,14 +29,19 @@ class RequerimientoSerializador(serializers.ModelSerializer):
         model = Requerimiento
         fields = '__all__'
 
-class ActividadProyectoSerializador(serializers.ModelSerializer):
+class RequerimientoProyectoSerializador(serializers.ModelSerializer):
     class Meta:
-        model = ActividadProyecto
+        model = RequerimientoProyecto
         fields = '__all__'
         
 #-------------------------------------------------------------------------------#
 
-'''class PrincipalesDatosTipoProyecto(serializers.ModelSerializer):
-    class Meta:
-        model = TipoProyecto
-        fields = ('id', 'nombre')'''
+# class PrincipalesDatosActividadProyecto(serializers.ModelSerializer):
+#     # proyecto = PrincipalesDatosProyecto(read_only=True)
+#     # tipo_proyecto = PrincipalesDatosTipoProyecto(read_only=True)
+#     # requerimiento = PrincipalesDatosRequerimiento(read_only=True)
+#     # actividad_tipo = PrincipalesDatosActividadTipo(read_only=True)
+    
+#     class Meta:
+#         model = TipoProyecto
+#         fields = ('id', 'proyecto', 'tipo_proyecto', 'requerimiento', 'actividad_tipo')

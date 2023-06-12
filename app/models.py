@@ -182,7 +182,7 @@ class Requerimiento(models.Model):
     def __str__(self):
         return str(self.id) + " : " + self.nombre
 
-class ActividadProyecto(models.Model):
+class RequerimientoProyecto(models.Model):
     """
     Clase usada para registrar las actividades de cada proyecto
     - - - - -
@@ -209,18 +209,23 @@ class ActividadProyecto(models.Model):
     proyecto = models.ForeignKey(Proyecto, blank=False, null=False, on_delete=models.CASCADE)
     tipo_proyecto = models.ForeignKey(TipoProyecto, blank=False, null=False, on_delete=models.CASCADE)
     requerimiento = models.ForeignKey(Requerimiento, blank=False, null=False, on_delete=models.CASCADE)
-    actividad_tipo = models.ForeignKey(ActividadTipo, blank=False, null=False, on_delete=models.CASCADE)
     
     date_record = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True) 
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = ("Actividad de requerimiento por Proyecto")
-        verbose_name_plural = ("Actividades de requerimientos por Proyectos")
+        verbose_name = ("Requerimiento por Proyecto")
+        verbose_name_plural = ("Requerimientos por Proyectos")
 
     def __str__(self):
-        main_desc = self.proyecto.nombre + " : " + self.tipo_proyecto.nombre + " : " + self.requerimiento.nombre + " | (" + self.actividad_tipo.nombre + ")" 
+        main_desc = self.proyecto.nombre + " : " + self.tipo_proyecto.nombre + " : " + self.requerimiento.nombre
         if self.actividad_tipo.decision is not None:
             main_desc = main_desc + " => " + self.actividad_tipo.decision.descripcion
         return main_desc
+    
+    # def __str__(self):
+    #     main_desc = self.proyecto.nombre + " : " + self.tipo_proyecto.nombre + " : " + self.requerimiento.nombre + " | (" + self.actividad_tipo.nombre + ")" 
+    #     if self.actividad_tipo.decision is not None:
+    #         main_desc = main_desc + " => " + self.actividad_tipo.decision.descripcion
+    #     return main_desc

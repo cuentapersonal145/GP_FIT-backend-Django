@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 from rest_framework import viewsets, generics
 #from rest_framework.response import Response
 #from django.shortcuts import render
+from django.db import connection
+from django.http import JsonResponse
 
 from .models import *
 from .serializers import *
@@ -37,11 +39,40 @@ class RequerimientoViewSet(viewsets.ModelViewSet):
     queryset = Requerimiento.objects.all()
     serializer_class = RequerimientoSerializador
     
-class ActividadProyectoViewSet(viewsets.ModelViewSet):
-    queryset = ActividadProyecto.objects.all()
-    serializer_class = ActividadProyectoSerializador
+class RequerimientoProyectoViewSet(viewsets.ModelViewSet):
+    queryset = RequerimientoProyecto.objects.all()
+    serializer_class = RequerimientoProyectoSerializador
 
 #--------------------------------------- API´s ----------------------------------------#
+
+def RequerimientosProyectoAPI(request, id):
+    query = f"""
+                SELECT a.id, a.proyecto_id, b.nombre as nombre_proyecto, a.tipo_proyecto_id, c.nombre as nombre_tipo, a.requerimiento_id, d.nombre as nombre_requerimiento
+                FROM "main"."app_actividadproyecto" a 
+                INNER JOIN "main"."app_proyecto" b ON a.proyecto_id = b.id
+                INNER JOIN "main"."app_tipoproyecto" c ON a.tipo_proyecto_id = c.id
+                INNER JOIN "main"."app_requerimiento" d ON a.requerimiento_id = d.id
+                WHERE a.proyecto_id = 1 AND a.is_active = 1
+                GROUP BY a.id, a.proyecto_id, b.nombre, a.tipo_proyecto_id, c.nombre, a.requerimiento_id, d.nombre;
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        results = cursor.fetchall()
+        
+    data = []
+    for row in results:
+        item = {
+            'id': row[0],
+            'proyecto_id': row[1],
+            'nombre_proyecto': row[2],
+            'tipo_proyecto_id': row[3],
+            'nombre_tipo': row[4],
+            'requerimiento_id': row[5],
+            'nombre': row[6],
+        }
+        data.append(item)
+    
+    return JsonResponse(data, safe=False)
 
 '''class DatosProductoAPI(generics.RetrieveAPIView):
     queryset = Producto.objects.all()

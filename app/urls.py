@@ -5,19 +5,21 @@ from rest_framework.routers import DefaultRouter
 from django.conf.urls.static import static'''
 
 from .views import *
+from . import views
 
 router = DefaultRouter()
 
 router.register('tipo_proyecto', TipoProyectoViewSet)
-router.register('proyecto', ProyectoViewSet)
+router.register('proyectos', ProyectoViewSet)
 router.register('decision', DecisionViewSet)
 router.register('actividad_tipo', ActividadTipoViewSet)
 router.register('requerimiento', RequerimientoViewSet)
-router.register('actividad_proyecto', ActividadProyectoViewSet)
+router.register('requerimiento_proyecto', RequerimientoProyectoViewSet)
 
 urlpatterns = [
     path( 'api/', include(router.urls) ),
-    #path( 'api/productos/marca/<int:id>/', DatosProductoAPI.as_view() )
+    path( 'api/proyecto/<int:id>/requerimientos/', RequerimientosProyectoAPI ),
+    # path( 'api/custom/', views.RequerimientosProyectoAPI, name='custom_api' ),
 ]
 
 #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
