@@ -12,7 +12,8 @@ router.register('tipo_proyecto', TipoProyectoViewSet)
 router.register('proyecto', ProyectoViewSet)
 router.register('decision', DecisionViewSet)
 router.register('actividad_tipo', ActividadTipoViewSet)
-router.register('actividad_proyecto', ProyectoTipoActividadViewSet)
+router.register('requerimiento', RequerimientoViewSet)
+router.register('actividad_proyecto', ActividadProyectoViewSet)
 
 urlpatterns = [
     path( 'api/', include(router.urls) ),

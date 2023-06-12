@@ -33,9 +33,13 @@ class ActividadTipoViewSet(viewsets.ModelViewSet):
     queryset = ActividadTipo.objects.all()
     serializer_class = ActividadTipoSerializador
     
-class ProyectoTipoActividadViewSet(viewsets.ModelViewSet):
-    queryset = ProyectoTipoActividad.objects.all()
-    serializer_class = ProyectoTipoActividadSerializador
+class RequerimientoViewSet(viewsets.ModelViewSet):
+    queryset = Requerimiento.objects.all()
+    serializer_class = RequerimientoSerializador
+    
+class ActividadProyectoViewSet(viewsets.ModelViewSet):
+    queryset = ActividadProyecto.objects.all()
+    serializer_class = ActividadProyectoSerializador
 
 #--------------------------------------- API´s ----------------------------------------#
 

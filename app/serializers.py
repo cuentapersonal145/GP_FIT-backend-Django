@@ -25,9 +25,14 @@ class ActividadTipoSerializador(serializers.ModelSerializer):
         model = ActividadTipo
         fields = '__all__'
 
-class ProyectoTipoActividadSerializador(serializers.ModelSerializer):
+class RequerimientoSerializador(serializers.ModelSerializer):
     class Meta:
-        model = ProyectoTipoActividad
+        model = Requerimiento
+        fields = '__all__'
+
+class ActividadProyectoSerializador(serializers.ModelSerializer):
+    class Meta:
+        model = ActividadProyecto
         fields = '__all__'
         
 #-------------------------------------------------------------------------------#
