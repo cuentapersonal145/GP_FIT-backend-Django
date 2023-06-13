@@ -39,6 +39,11 @@ class ProyectoServicioSerializador(serializers.ModelSerializer):
         model = ProyectoServicio
         fields = '__all__'
         
+class ProyectoActividadSerializador(serializers.ModelSerializer):
+    class Meta:
+        model = ProyectoActividad
+        fields = '__all__'
+        
 #-------------------------------------------------------------------------------#
 
 # class PrincipalesDatosActividadProyecto(serializers.ModelSerializer):

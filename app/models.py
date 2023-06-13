@@ -193,7 +193,7 @@ class ActividadTipo(models.Model):
     posicion = models.PositiveIntegerField(blank=False, null=False)
     posicion_anterior = models.PositiveIntegerField(blank=True, null=True)
     categoria = models.CharField(max_length=32, blank=False, null=False)
-    decision = models.ForeignKey(Decision, blank=True, null=True, on_delete=models.CASCADE)
+    decision = models.ForeignKey(Decision, blank=False, null=False, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=64, blank=False, null=False)
     
     date_record = models.DateTimeField(auto_now_add=True)
@@ -209,7 +209,7 @@ class ActividadTipo(models.Model):
         if self.posicion_anterior is not None:
             main_desc = main_desc + " --- Pos ant = " + str(self.posicion_anterior)
         main_desc = main_desc + " --- (" + self.nombre + ")"
-        if self.decision is not None:
+        if self.decision.id != 3:
             main_desc = main_desc + " --- " + self.decision.descripcion
         return main_desc
 
@@ -252,9 +252,41 @@ class ProyectoServicio(models.Model):
 
     def __str__(self):
         return self.servicio.nombre + " : " + self.proyecto.nombre + " : " + self.tipo_proyecto.nombre + " : " + self.solicitud.nombre
+
+class ProyectoActividad(models.Model):
+    """
+    Clase usada para registrar las actividades por proyecto
+    - - - - -
+    Attributes
+    - - - - -
+    proyecto_servicio : FK
+        Llave foranea en la relacion con el ProyectoServicio
+    actividad_tipo : FK
+        Llave foranea en la relacion con el ActividadTipo
+    date_record : datetime
+        Fecha de registro
+    date_update : datetime
+        Fecha de último cambio realizado
+    is_active : boolean
+        Indica si el registro esta activo
+    - - - - -
+    Methods
+    - - - - -
+    """
+    proyecto_servicio = models.ForeignKey(ProyectoServicio, blank=False, null=False, on_delete=models.CASCADE)
+    actividad_tipo = models.ForeignKey(ActividadTipo, blank=False, null=False, on_delete=models.CASCADE)
     
-    # def __str__(self):
-    #     main_desc = self.proyecto.nombre + " : " + self.tipo_proyecto.nombre + " : " + self.requerimiento.nombre + " | (" + self.actividad_tipo.nombre + ")" 
-    #     if self.actividad_tipo.decision is not None:
-    #         main_desc = main_desc + " => " + self.actividad_tipo.decision.descripcion
-    #     return main_desc
+    date_record = models.DateTimeField(auto_now_add=True)
+    date_update = models.DateTimeField(auto_now=True) 
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = ("Actividad por proyecto")
+        verbose_name_plural = ("Actividades por proyectos")
+
+    def __str__(self):
+        main_desc = self.proyecto_servicio.servicio.nombre + " : " + self.proyecto_servicio.proyecto.nombre + " [ "
+        main_desc += self.proyecto_servicio.tipo_proyecto.nombre + " : " + self.proyecto_servicio.solicitud.nombre + " ] (" + self.actividad_tipo.nombre + ")" 
+        if self.actividad_tipo.decision.id != 3:
+            main_desc = main_desc + " | Decision => " + self.actividad_tipo.decision.descripcion
+        return main_desc

@@ -13,4 +13,5 @@ admin.site.register([
     Decision,
     ActividadTipo,
     ProyectoServicio,
+    ProyectoActividad,
 ])

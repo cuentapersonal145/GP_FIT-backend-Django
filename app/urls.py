@@ -16,10 +16,12 @@ router.register('solicitudes', SolicitudViewSet)
 router.register('decisiones', DecisionViewSet)
 router.register('actividades_tipos', ActividadTipoViewSet)
 router.register('proyectos_servicios', ProyectoServicioViewSet)
+router.register('proyectos_actividad', ProyectoActividadViewSet)
 
 urlpatterns = [
     path( 'api/', include(router.urls) ),
-    path( 'api/servicio/<int:id>/proyectos/', RequerimientosProyectoAPI ),
+    path( 'api/servicio/<int:id>/proyectos/', ProyectosServicioAPI ),
+    path( 'api/proyecto/<int:id>/actividades/', ActividadesProyectoAPI ),
     # path( 'api/custom/', views.RequerimientosProyectoAPI, name='custom_api' ),
 ]
 
