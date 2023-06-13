@@ -129,12 +129,12 @@ def ActividadesProyectoAPI(request, id):
             'servicio_id': row[1],
             'nombre_servicio': row[2],
             'proyecto_id': row[3],
-            'nombre': row[4],
+            'nombre_proyecto': row[4],
             'tipo_proyecto_id': row[5],
             'nombre_tipo': row[6],
             'solicitud_id': row[7],
             'nombre_solicitud': row[8],
-            'my_list': data1
+            'actividades': data1
         }
         data2.append(item)
     

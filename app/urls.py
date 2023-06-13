@@ -21,7 +21,7 @@ router.register('proyectos_actividad', ProyectoActividadViewSet)
 urlpatterns = [
     path( 'api/', include(router.urls) ),
     path( 'api/servicio/<int:id>/proyectos/', ProyectosServicioAPI ),
-    path( 'api/proyecto/<int:id>/actividades/', ActividadesProyectoAPI ),
+    path( 'api/proyecto_servicio/<int:id>/actividades/', ActividadesProyectoAPI ),
     # path( 'api/custom/', views.RequerimientosProyectoAPI, name='custom_api' ),
 ]
 
