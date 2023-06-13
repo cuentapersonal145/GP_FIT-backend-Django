@@ -1,8 +1,4 @@
-INSERT INTO "main"."app_proyecto" ("id", "nombre", "date_record", "date_update", "is_active") VALUES ('1', 'Claro : Global Hitss - Extensión NAE', '2023-06-08 15:40:15.795153', '2023-06-08 15:40:15.795153', '1');
-
 INSERT INTO "main"."app_tipoproyecto" ("id", "nombre", "date_record", "date_update", "is_active") VALUES ('1', 'ETL', '2023-06-08 04:12:49.612410', '2023-06-08 04:12:49.612410', '1');
-
-INSERT INTO "main"."app_requerimiento" ("id", "nombre", "date_record", "date_update", "is_active") VALUES ('1', 'Microondas', '2023-06-09 13:02:28.041396', '2023-06-09 13:02:28.041396', '1');
 
 INSERT INTO "main"."app_decision" ("id", "tipo", "date_record", "date_update", "is_active", "descripcion") VALUES ('1', '1', '2023-06-08 16:07:10.684358', '2023-06-08 16:07:10.684358', '1', 'SI');
 INSERT INTO "main"."app_decision" ("id", "tipo", "date_record", "date_update", "is_active", "descripcion") VALUES ('2', '1', '2023-06-08 16:07:19.108952', '2023-06-08 16:07:19.108952', '1', 'NO');
@@ -15,3 +11,11 @@ INSERT INTO "main"."app_actividadtipo" ("id", "posicion", "categoria", "posicion
 INSERT INTO "main"."app_actividadtipo" ("id", "posicion", "categoria", "posicion_anterior", "nombre", "date_record", "date_update", "is_active", "tipo_proyecto_id", "decision_id") VALUES ('6', '6', 'Actividad', '5', 'Ejecutar procesos de Accesos para datos', '2023-06-08 17:21:52.878981', '2023-06-08 17:21:52.878981', '1', '1', NULL);
 INSERT INTO "main"."app_actividadtipo" ("id", "posicion", "categoria", "posicion_anterior", "nombre", "date_record", "date_update", "is_active", "tipo_proyecto_id", "decision_id") VALUES ('7', '6', 'Actividad', '3', 'Ejecutar procesos de Accesos para datos', '2023-06-08 17:22:09.765692', '2023-06-08 17:22:09.765692', '1', '1', NULL);
 
+INSERT INTO "main"."app_servicio" ("id", "nombre", "date_record", "date_update", "is_active") VALUES ('1', 'Claro : Global Hitss - Extensión NAE', '2023-06-13 00:33:24.913621', '2023-06-13 00:33:24.913621', '1');
+
+INSERT INTO "main"."app_proyecto" ("id", "nombre", "date_record", "date_update", "is_active") VALUES ('1', 'Microondas', '2023-06-13 00:33:36.610746', '2023-06-13 00:33:43.027397', '1');
+
+INSERT INTO "main"."app_solicitud" ("id", "nombre", "date_record", "date_update", "is_active") VALUES ('1', 'Desarrollo', '2023-06-13 00:34:04.890305', '2023-06-13 00:34:04.890305', '1');
+INSERT INTO "main"."app_solicitud" ("id", "nombre", "date_record", "date_update", "is_active") VALUES ('2', 'Consulta', '2023-06-13 00:34:34.138438', '2023-06-13 00:34:34.138438', '1');
+
+INSERT INTO "main"."app_proyectoservicio" ("id", "date_record", "date_update", "is_active", "proyecto_id", "servicio_id", "solicitud_id", "tipo_proyecto_id") VALUES ('1', '2023-06-13 00:35:02.731286', '2023-06-13 00:35:02.731286', '1', '1', '1', '1', '1');

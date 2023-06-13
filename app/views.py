@@ -10,8 +10,8 @@ from django.http import JsonResponse
 from .models import *
 from .serializers import *
 
-'''from django.db.models.signals import post_save
-from .signal import *'''
+# from django.db.models.signals import post_save
+# from .signal import *
 
 #--------------------------------------- Signals ----------------------------------------#
 
@@ -19,13 +19,21 @@ from .signal import *'''
 
 #--------------------------------------- API´s por defecto ----------------------------------------#
 
-class TipoProyectoViewSet(viewsets.ModelViewSet):
-    queryset = TipoProyecto.objects.all()
-    serializer_class = TipoProyectoSerializador
-    
+class ServicioViewSet(viewsets.ModelViewSet):
+    queryset = Servicio.objects.all()
+    serializer_class = ServicioSerializador
+
 class ProyectoViewSet(viewsets.ModelViewSet):
     queryset = Proyecto.objects.all()
     serializer_class = ProyectoSerializador
+
+class TipoProyectoViewSet(viewsets.ModelViewSet):
+    queryset = TipoProyecto.objects.all()
+    serializer_class = TipoProyectoSerializador
+
+class SolicitudViewSet(viewsets.ModelViewSet):
+    queryset = Solicitud.objects.all()
+    serializer_class = SolicitudSerializador
     
 class DecisionViewSet(viewsets.ModelViewSet):
     queryset = Decision.objects.all()
@@ -35,25 +43,21 @@ class ActividadTipoViewSet(viewsets.ModelViewSet):
     queryset = ActividadTipo.objects.all()
     serializer_class = ActividadTipoSerializador
     
-class RequerimientoViewSet(viewsets.ModelViewSet):
-    queryset = Requerimiento.objects.all()
-    serializer_class = RequerimientoSerializador
-    
-class RequerimientoProyectoViewSet(viewsets.ModelViewSet):
-    queryset = RequerimientoProyecto.objects.all()
-    serializer_class = RequerimientoProyectoSerializador
+class ProyectoServicioViewSet(viewsets.ModelViewSet):
+    queryset = ProyectoServicio.objects.all()
+    serializer_class = ProyectoServicioSerializador
 
 #--------------------------------------- API´s ----------------------------------------#
 
 def RequerimientosProyectoAPI(request, id):
     query = f"""
-                SELECT a.id, a.proyecto_id, b.nombre as nombre_proyecto, a.tipo_proyecto_id, c.nombre as nombre_tipo, a.requerimiento_id, d.nombre as nombre_requerimiento
-                FROM "main"."app_actividadproyecto" a 
-                INNER JOIN "main"."app_proyecto" b ON a.proyecto_id = b.id
-                INNER JOIN "main"."app_tipoproyecto" c ON a.tipo_proyecto_id = c.id
-                INNER JOIN "main"."app_requerimiento" d ON a.requerimiento_id = d.id
-                WHERE a.proyecto_id = 1 AND a.is_active = 1
-                GROUP BY a.id, a.proyecto_id, b.nombre, a.tipo_proyecto_id, c.nombre, a.requerimiento_id, d.nombre;
+                SELECT a.id, a.servicio_id, b.nombre as nombre_servicio, a.proyecto_id, c.nombre as nombre, a.tipo_proyecto_id, d.nombre as nombre_tipo, a.solicitud_id, e.nombre as nombre_solicitud
+                FROM "main"."app_proyectoservicio" a 
+                INNER JOIN "main"."app_servicio" b ON a.servicio_id = b.id
+                INNER JOIN "main"."app_proyecto" c ON a.proyecto_id = c.id
+                INNER JOIN "main"."app_tipoproyecto" d ON a.tipo_proyecto_id = d.id
+                INNER JOIN "main"."app_solicitud" e ON a.solicitud_id = e.id
+                WHERE a.servicio_id = {id} AND a.is_active = 1;
     """
     with connection.cursor() as cursor:
         cursor.execute(query)
@@ -63,12 +67,14 @@ def RequerimientosProyectoAPI(request, id):
     for row in results:
         item = {
             'id': row[0],
-            'proyecto_id': row[1],
-            'nombre_proyecto': row[2],
-            'tipo_proyecto_id': row[3],
-            'nombre_tipo': row[4],
-            'requerimiento_id': row[5],
-            'nombre': row[6],
+            'servicio_id': row[1],
+            'nombre_servicio': row[2],
+            'proyecto_id': row[3],
+            'nombre': row[4],
+            'tipo_proyecto_id': row[5],
+            'nombre_tipo': row[6],
+            'solicitud_id': row[7],
+            'nombre_solicitud': row[8],
         }
         data.append(item)
     

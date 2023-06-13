@@ -9,16 +9,17 @@ from . import views
 
 router = DefaultRouter()
 
-router.register('tipo_proyecto', TipoProyectoViewSet)
+router.register('servicios', ServicioViewSet)
 router.register('proyectos', ProyectoViewSet)
-router.register('decision', DecisionViewSet)
-router.register('actividad_tipo', ActividadTipoViewSet)
-router.register('requerimiento', RequerimientoViewSet)
-router.register('requerimiento_proyecto', RequerimientoProyectoViewSet)
+router.register('tipos_proyectos', TipoProyectoViewSet)
+router.register('solicitudes', SolicitudViewSet)
+router.register('decisiones', DecisionViewSet)
+router.register('actividades_tipos', ActividadTipoViewSet)
+router.register('proyectos_servicios', ProyectoServicioViewSet)
 
 urlpatterns = [
     path( 'api/', include(router.urls) ),
-    path( 'api/proyecto/<int:id>/requerimientos/', RequerimientosProyectoAPI ),
+    path( 'api/servicio/<int:id>/proyectos/', RequerimientosProyectoAPI ),
     # path( 'api/custom/', views.RequerimientosProyectoAPI, name='custom_api' ),
 ]
 

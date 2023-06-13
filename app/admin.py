@@ -6,10 +6,11 @@ from django.contrib import admin
 from .models import *
 
 admin.site.register([
-    TipoProyecto,
+    Servicio,
     Proyecto,
+    TipoProyecto,
+    Solicitud,
     Decision,
     ActividadTipo,
-    Requerimiento,
-    RequerimientoProyecto,
+    ProyectoServicio,
 ])

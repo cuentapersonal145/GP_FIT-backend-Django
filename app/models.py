@@ -3,6 +3,68 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+class Servicio(models.Model):
+    """
+    Clase usada para registrar los servicios manegados en el contexto actual
+    - - - - -
+    Attributes
+    - - - - -
+    nombre : str(256)
+        Nombre para identificar el servicio
+    date_record : datetime
+        Fecha de registro
+    date_update : datetime
+        Fecha de último cambio realizado
+    is_active : boolean
+        Indica si el registro esta activo
+    - - - - -
+    Methods
+    - - - - -
+    """
+    nombre = models.CharField(max_length=256, blank=False, null=False, unique=True)
+    
+    date_record = models.DateTimeField(auto_now_add=True)
+    date_update = models.DateTimeField(auto_now=True) 
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = ("Servicio")
+        verbose_name_plural = ("Servicios")
+
+    def __str__(self):
+        return str(self.id) + " : " + self.nombre
+
+class Proyecto(models.Model):
+    """
+    Clase usada para registrar los proyectos manegados en el contexto actual
+    - - - - -
+    Attributes
+    - - - - -
+    nombre : str(256)
+        Nombre para identificar el proyecto
+    date_record : datetime
+        Fecha de registro
+    date_update : datetime
+        Fecha de último cambio realizado
+    is_active : boolean
+        Indica si el registro esta activo
+    - - - - -
+    Methods
+    - - - - -
+    """
+    nombre = models.CharField(max_length=256, blank=False, null=False, unique=True)
+    
+    date_record = models.DateTimeField(auto_now_add=True)
+    date_update = models.DateTimeField(auto_now=True) 
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = ("Proyecto")
+        verbose_name_plural = ("Proyectos")
+
+    def __str__(self):
+        return str(self.id) + " : " + self.nombre
+
 class TipoProyecto(models.Model):
     """
     Clase usada para registrar los tipos de proyecto manegados en el contexto actual
@@ -28,20 +90,20 @@ class TipoProyecto(models.Model):
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = ("Tipo Proyecto")
-        verbose_name_plural = ("Tipos Proyectos")
+        verbose_name = ("Tipo proyecto")
+        verbose_name_plural = ("Tipos proyectos")
 
     def __str__(self):
         return str(self.id) + " : " + self.nombre
-    
-class Proyecto(models.Model):
+
+class Solicitud(models.Model):
     """
-    Clase usada para registrar los proyectos manegados en el contexto actual
+    Clase usada para registrar los tipos de solicitud manegados en el contexto actual
     - - - - -
     Attributes
     - - - - -
-    nombre : str(128)
-        Nombre para identificar el proyecto
+    nombre : str(64)
+        Nombre para identificar el tipo de solicitud
     date_record : datetime
         Fecha de registro
     date_update : datetime
@@ -52,15 +114,15 @@ class Proyecto(models.Model):
     Methods
     - - - - -
     """
-    nombre = models.CharField(max_length=128, blank=False, null=False, unique=True)
+    nombre = models.CharField(max_length=64, blank=False, null=False, unique=True)
     
     date_record = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True) 
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = ("Proyecto")
-        verbose_name_plural = ("Proyectos")
+        verbose_name = ("Tipo solicitud")
+        verbose_name_plural = ("Tipos solicitudes")
 
     def __str__(self):
         return str(self.id) + " : " + self.nombre
@@ -139,8 +201,8 @@ class ActividadTipo(models.Model):
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = ("Actividad por Tipo")
-        verbose_name_plural = ("Actividades por Tipo")
+        verbose_name = ("Actividad por tipo de proyecto")
+        verbose_name_plural = ("Actividades por tipos de proyectos")
 
     def __str__(self):
         main_desc = str(self.id) + " " + self.tipo_proyecto.nombre + " : Pos = " + str(self.posicion) 
@@ -151,51 +213,20 @@ class ActividadTipo(models.Model):
             main_desc = main_desc + " --- " + self.decision.descripcion
         return main_desc
 
-class Requerimiento(models.Model):
+class ProyectoServicio(models.Model):
     """
-    Clase usada para registrar los requerimientos manegados en el contexto actual
+    Clase usada para registrar los proyectos solicitados en el servicio
     - - - - -
     Attributes
     - - - - -
-    nombre : str(256)
-        Nombre para identificar el requerimiento
-    date_record : datetime
-        Fecha de registro
-    date_update : datetime
-        Fecha de último cambio realizado
-    is_active : boolean
-        Indica si el registro esta activo
-    - - - - -
-    Methods
-    - - - - -
-    """
-    nombre = models.CharField(max_length=256, blank=False, null=False, unique=True)
-    
-    date_record = models.DateTimeField(auto_now_add=True)
-    date_update = models.DateTimeField(auto_now=True) 
-    is_active = models.BooleanField(default=True)
-
-    class Meta:
-        verbose_name = ("Requerimiento")
-        verbose_name_plural = ("Requerimientos")
-
-    def __str__(self):
-        return str(self.id) + " : " + self.nombre
-
-class RequerimientoProyecto(models.Model):
-    """
-    Clase usada para registrar las actividades de cada proyecto
-    - - - - -
-    Attributes
-    - - - - -
+    servicio : FK
+        Llave foranea en la relacion con el servicio
     proyecto : FK
         Llave foranea en la relacion con el proyecto
     tipo_proyecto : FK
         Llave foranea en la relacion con el tipo de proyecto
-    requerimiento : FK
-        Llave foranea en la relacion con el requerimiento
-    actividades_tipo : FK
-        Llave foranea en la relacion con el actividades por tipo de proyecto
+    solicitud : FK
+        Llave foranea en la relacion con el solicitud
     date_record : datetime
         Fecha de registro
     date_update : datetime
@@ -206,23 +237,21 @@ class RequerimientoProyecto(models.Model):
     Methods
     - - - - -
     """
+    servicio = models.ForeignKey(Servicio, blank=False, null=False, on_delete=models.CASCADE)
     proyecto = models.ForeignKey(Proyecto, blank=False, null=False, on_delete=models.CASCADE)
     tipo_proyecto = models.ForeignKey(TipoProyecto, blank=False, null=False, on_delete=models.CASCADE)
-    requerimiento = models.ForeignKey(Requerimiento, blank=False, null=False, on_delete=models.CASCADE)
+    solicitud = models.ForeignKey(Solicitud, blank=False, null=False, on_delete=models.CASCADE)
     
     date_record = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True) 
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = ("Requerimiento por Proyecto")
-        verbose_name_plural = ("Requerimientos por Proyectos")
+        verbose_name = ("Proyecto por servicio")
+        verbose_name_plural = ("Proyectos por servicios")
 
     def __str__(self):
-        main_desc = self.proyecto.nombre + " : " + self.tipo_proyecto.nombre + " : " + self.requerimiento.nombre
-        if self.actividad_tipo.decision is not None:
-            main_desc = main_desc + " => " + self.actividad_tipo.decision.descripcion
-        return main_desc
+        return self.servicio.nombre + " : " + self.proyecto.nombre + " : " + self.tipo_proyecto.nombre + " : " + self.solicitud.nombre
     
     # def __str__(self):
     #     main_desc = self.proyecto.nombre + " : " + self.tipo_proyecto.nombre + " : " + self.requerimiento.nombre + " | (" + self.actividad_tipo.nombre + ")" 

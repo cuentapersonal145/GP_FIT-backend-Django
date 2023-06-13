@@ -4,14 +4,24 @@ from .models import *
 
 #--------------------------------------- Serializadores por defecto ----------------------------------------#
 
+class ServicioSerializador(serializers.ModelSerializer):
+    class Meta:
+        model = Servicio
+        fields = '__all__'
+
+class ProyectoSerializador(serializers.ModelSerializer):
+    class Meta:
+        model = Proyecto
+        fields = '__all__'
+
 class TipoProyectoSerializador(serializers.ModelSerializer):
     class Meta:
         model = TipoProyecto
         fields = '__all__'
         
-class ProyectoSerializador(serializers.ModelSerializer):
+class SolicitudSerializador(serializers.ModelSerializer):
     class Meta:
-        model = Proyecto
+        model = Solicitud
         fields = '__all__'
         
 class DecisionSerializador(serializers.ModelSerializer):
@@ -24,14 +34,9 @@ class ActividadTipoSerializador(serializers.ModelSerializer):
         model = ActividadTipo
         fields = '__all__'
 
-class RequerimientoSerializador(serializers.ModelSerializer):
+class ProyectoServicioSerializador(serializers.ModelSerializer):
     class Meta:
-        model = Requerimiento
-        fields = '__all__'
-
-class RequerimientoProyectoSerializador(serializers.ModelSerializer):
-    class Meta:
-        model = RequerimientoProyecto
+        model = ProyectoServicio
         fields = '__all__'
         
 #-------------------------------------------------------------------------------#
